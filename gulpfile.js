@@ -32,8 +32,8 @@ gulp.task('clean', function() {
 });
 
 gulp.task('watch', ['sass', 'scripts', 'html'], function() {
-    gulp.watch(['./src/**/*.js', '!src/**/*.spec.js'], ['scripts']);
-    gulp.watch('./src/components/**/*.html', ['html', 'scripts']);
+    gulp.watch(['./src/**/*.js', '!src/**/*.spec.js', './src/components/**/*.html'], ['scripts']);
+    gulp.watch('./src/index.html', ['html']);
     gulp.watch('./src/**/*.scss', ['sass']);
 });
 

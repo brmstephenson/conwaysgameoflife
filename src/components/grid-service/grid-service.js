@@ -18,7 +18,11 @@ function gridService() {
 
   this.setCoordinate = (row, column, value) => {
     this.grid[row][column] = value;
-  }
+  };
+
+  this.getRowSize = () => this.grid.length;
+
+  this.getColumnSize = () => this.grid[0].length;
 }
 
 angular.module('conwaysApp').service('gridService', gridService);

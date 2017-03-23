@@ -63,4 +63,26 @@ describe('grid service', function() {
       expect(gridService.grid[expectedRow][expectedColumn]).toEqual(expectedValue);
     });
   });
+
+  describe('get size of grid', function() {
+    beforeEach(function() {
+      gridService.createGrid(2,4);
+    });
+
+    it('should get the row size of the grid', function() {
+      const expectedRowSize = 2;
+
+      const actualRowSize = gridService.getRowSize();
+
+      expect(actualRowSize).toEqual(expectedRowSize);
+    });
+
+    it('should get the row size of the grid', function() {
+      const expectedColumnSize = 4;
+
+      const actualRowSize = gridService.getColumnSize();
+
+      expect(actualRowSize).toEqual(expectedColumnSize);
+    });
+  });
 });
