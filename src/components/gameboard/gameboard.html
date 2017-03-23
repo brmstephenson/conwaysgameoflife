@@ -1,0 +1,8 @@
+<div class="gameboard">
+    <div ng-repeat="row in $ctrl.gameboard track by $index">
+        <div class="coordinate dead"
+             ng-repeat="column in row track by $index"
+             ng-class="{alive: column, clearfix: $ctrl.shouldClearfix($index)}">
+        </div>
+    </div>
+</div>

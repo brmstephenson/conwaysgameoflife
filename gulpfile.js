@@ -2,14 +2,18 @@
 let gulp = require('gulp'),
     babelify = require('babelify'),
     browserify = require('browserify'),
+    stringify = require('stringify'),
     connect = require('gulp-connect'),
     source = require('vinyl-source-stream'),
     del = require('del'),
     sass = require('gulp-sass'),
-    sourcemaps = require('gulp-sourcemaps');
+    sourcemaps = require('gulp-sourcemaps'),
+    autoprefix = require('gulp-autoprefixer'),
+    concat = require('gulp-concat'),
+    minify = require('gulp-minify-css');
 
 gulp.task('html', function(){
-    return gulp.src('./src/**/*.html')
+    return gulp.src('./src/index.html')
     .pipe(gulp.dest('./dist'));
 });
 
@@ -17,17 +21,19 @@ gulp.task('sass', function() {
     return gulp.src('./src/**/*.scss')
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
+        .pipe(autoprefix())
+        .pipe(concat('bundle.css'))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('./dist/css'));
+        .pipe(gulp.dest('./dist/src/'));
 });
 
 gulp.task('clean', function() {
     del('dist');
 });
 
-gulp.task('watch', ['scripts', 'html', 'sass'], () => {
+gulp.task('watch', ['sass', 'scripts', 'html'], function() {
     gulp.watch(['./src/**/*.js', '!src/**/*.spec.js'], ['scripts']);
-    gulp.watch('./src/**/*.html', ['html']);
+    gulp.watch('./src/components/**/*.html', ['html', 'scripts']);
     gulp.watch('./src/**/*.scss', ['sass']);
 });
 
@@ -47,6 +53,10 @@ gulp.task('scripts', function(){
     .transform(babelify.configure({
         presets : ['es2015']
     }))
+      .transform(stringify, {
+        appliesTo: { includeExtensions: ['.html'] },
+        minify: true
+      })
     .bundle()
     .pipe(source('src/bundle.js'))
     .pipe(gulp.dest('./dist'))

@@ -1,0 +1,29 @@
+.gameboard {
+  display: table;
+  left: 50%;
+  top: 50%
+}
+
+.coordinate {
+  display: table-cell;
+  width: 30px;
+  height: 30px;
+  float: left;
+}
+
+.clearfix:after {
+  content: ".";
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+.dead {
+  background-color: darkslateblue;
+  border: 2px solid black;
+}
+
+.alive {
+  background-color: blue;
+}

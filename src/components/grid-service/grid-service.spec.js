@@ -1,3 +1,5 @@
+'use strict';
+
 describe('grid service', function() {
   beforeEach(angular.mock.module('conwaysApp'));
     
@@ -25,7 +27,6 @@ describe('grid service', function() {
    
     expect(gridService.grid).toEqual(startingFakeGrid);
   });
-  
   
   describe('get set and toggle coordinates on the grid', function(){
     let expectedValue,

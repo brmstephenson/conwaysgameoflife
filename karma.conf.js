@@ -20,8 +20,8 @@ module.exports = function(config) {
         'node_modules/**/angular-mocks.js',
         'node_modules/**/lodash/lodash.min.js',
         'src/main.js',
-        'src/js/**/*.js',
-        'src/js/**/*.spec.js'
+        'src/**/*.js',
+        'src/**/*.spec.js'
     ],
 
 

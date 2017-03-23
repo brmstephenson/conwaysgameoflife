@@ -3,11 +3,13 @@
 <html>
     <head>
         <title>Conway's Game of Life</title>
-        <style src="css/bundle.css"></style>
+        <link rel="stylesheet" type="text/css" href="src/bundle.css" />
+        <script src="src/bundle.js"></script>
     </head>
     <body ng-app="conwaysApp">
-        <h2>Conway's Game of Life</h2>
-        <b>Name :</b> <span id="nameSpan"></span>
-        <script src="js/bundle.js"></script>
+        <div>
+            <h2>Conway's Game of Life</h2>
+            <cgl-gameboard></cgl-gameboard>
+        </div>
     </body>
 </html>
