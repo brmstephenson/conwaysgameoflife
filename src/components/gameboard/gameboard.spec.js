@@ -16,14 +16,14 @@ describe('gameboard component', function() {
     let gameboardController, gameboardComponent;
 
     beforeEach(function() {
-      gameboardController  = $componentController('cglGameboard', null, {rowSize: 4, columnSize: 3});
+      gameboardController  = $componentController('cglGameboard', null, {rowSize: 3, columnSize: 2});
       gameboardComponent = $compile('<cgl-gameboard></cgl-gameboard>')($rootScope);
       $rootScope.$digest();
     });
 
     describe('initial state', function() {
       it('should set an initial row size', function() {
-        const expectedRowSize = 4;
+        const expectedRowSize = 3;
 
         const actualRowSize = gameboardController.rowSize;
 
@@ -31,7 +31,7 @@ describe('gameboard component', function() {
       });
 
       it('should set an initial row size', function() {
-        const expectedColumnSize = 3;
+        const expectedColumnSize = 2;
 
         const actualRowSize = gameboardController.columnSize;
 
@@ -39,7 +39,7 @@ describe('gameboard component', function() {
       });
 
       it('should set an initial grid', function() {
-        gridService.createGrid(4, 3);
+        gridService.createGrid(3, 2);
 
         const expectedGrid = gridService.grid;
 
@@ -51,9 +51,9 @@ describe('gameboard component', function() {
         expect(actualGrid).toEqual(expectedGrid);
       });
 
-      describe('shouldClearfix() method', function() {
+      describe('shouldClearfix(index) method', function() {
         it('should return false when it does not need to clear floats', function() {
-          const expectedIndex = 1;
+          const expectedIndex = 0;
           const expectedValue = false;
 
           gameboardController.$onInit();
@@ -64,7 +64,7 @@ describe('gameboard component', function() {
         });
 
         it('should return true when it needs to clear floats', function() {
-          const expectedIndex = 2;
+          const expectedIndex = 1;
           const expectedValue = true;
 
           gameboardController.$onInit();
@@ -72,6 +72,47 @@ describe('gameboard component', function() {
 
           const actualClearfixValue = gameboardController.shouldClearfix(expectedIndex);
           expect(actualClearfixValue).toEqual(expectedValue);
+        });
+      });
+
+      describe('toggleCoordinate(rowIndex, columnIndex) method', function() {
+        let expectedRowIndex, expectedColumnIndex;
+        beforeEach(function() {
+          expectedRowIndex = 0;
+          expectedColumnIndex = 1;
+
+          gameboardController.$onInit();
+          $rootScope.$digest();
+        });
+
+        it('should change the only coordinate value to true', function() {
+          const expectedGameboard = [
+            [false, true],
+            [false, false],
+            [false, false]
+          ];
+
+          gameboardController.clickCoordinate(expectedRowIndex, expectedColumnIndex);
+
+          const actualGameboard = gameboardController.gameboard;
+
+          expect(actualGameboard).toEqual(expectedGameboard);
+        });
+
+        it('should change the only coordinate value to false', function() {
+          const expectedGameboard = [
+            [false, false],
+            [false, false],
+            [false, false]
+          ];
+
+          gameboardController.gameboard[expectedRowIndex][expectedColumnIndex] = true;
+
+          gameboardController.clickCoordinate(expectedRowIndex, expectedColumnIndex);
+
+          const actualGameboard = gameboardController.gameboard;
+
+          expect(actualGameboard).toEqual(expectedGameboard);
         });
       });
     });

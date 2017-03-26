@@ -6,8 +6,8 @@
 
 .coordinate {
   display: table-cell;
-  width: 30px;
-  height: 30px;
+  width: 100px;
+  height: 100px;
   float: left;
 }
 
@@ -20,7 +20,8 @@
 }
 
 .dead {
-  background-color: darkslateblue;
+  background-color: #775aa0;
+  color: white;
   border: 2px solid black;
 }
 

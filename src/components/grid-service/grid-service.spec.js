@@ -31,10 +31,13 @@ describe('grid service', function() {
   describe('get set and toggle coordinates on the grid', function(){
     let expectedValue,
         expectedRow,
-        expectedColumn;
+        expectedColumn,
+        expectedGrid;
     
     beforeEach(function() {
       expectedValue = true;
+      expectedGrid = angular.copy(startingFakeGrid);
+      expectedGrid[0][1] = true;
       expectedRow = 0;
       expectedColumn = 1;
       
@@ -52,15 +55,17 @@ describe('grid service', function() {
     it('should set a coordinate on the grid', function() {
       gridService.setCoordinate(expectedRow, expectedColumn, expectedValue);
 
-      const actualValue = gridService.grid[expectedRow][expectedColumn];
+      const actualGrid = gridService.grid;
 
-      expect(actualValue).toEqual(expectedValue);
+      expect(actualGrid).toEqual(expectedGrid);
     });
 
     it('should toggle a coordinate on the grid', function() {
-      gridService.toogleCoordinate(expectedRow, expectedColumn);
+      gridService.toggleCoordinate(expectedRow, expectedColumn);
 
-      expect(gridService.grid[expectedRow][expectedColumn]).toEqual(expectedValue);
+      const actualGrid = gridService.grid;
+
+      expect(actualGrid).toEqual(expectedGrid);
     });
   });
 

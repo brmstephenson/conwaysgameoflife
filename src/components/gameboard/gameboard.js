@@ -14,7 +14,12 @@ const gameboardComponent = {
 function gameboardController(gridService) {
   this.shouldClearfix = index => index + 1 === this.columnSize;
 
+  this.clickCoordinate = (rowIndex, columnIndex) => {
+    gridService.toggleCoordinate(rowIndex, columnIndex);
+  };
+
   this.$onInit = () => {
+    this.gameboard = [[]];
     gridService.createGrid(this.rowSize, this.columnSize);
 
     this.gameboard = gridService.grid;
