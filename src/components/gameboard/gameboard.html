@@ -2,7 +2,8 @@
     <div ng-repeat="row in $ctrl.gameboard track by $index">
         <div class="coordinate dead"
              ng-repeat="column in row track by $index"
-             ng-class="{alive: column, clearfix: $ctrl.shouldClearfix($index)}">
+             ng-class="{alive: column, clearfix: $ctrl.shouldClearfix($index)}"
+             ng-click="$ctrl.clickCoordinate($parent.$index, $index)">
         </div>
     </div>
 </div>

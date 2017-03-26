@@ -1,17 +1,19 @@
 'use strict';
 
-import _ from 'lodash';
-
 function gridService() {
   this.grid = [[]];
 
   this.createGrid = (rowSize, columnSize) => {
-    const column = _.fill(Array(columnSize), false);
-    this.grid = _.fill(Array(rowSize), column);
+    for (let i = 0; i < rowSize; i++) {
+      this.grid[i] = [];
+      for (let j = 0; j < columnSize; j++) {
+        this.grid[i][j] = false;
+      }
+    }
   };
 
-  this.toogleCoordinate = (row, column) => {
-    this.grid[row][column] = !this.grid[row][column];
+  this.toggleCoordinate = (rowIndex, columnIndex) => {
+    this.grid[rowIndex][columnIndex] = !this.grid[rowIndex][columnIndex];
   };
 
   this.getCoordinate = (row, column) => this.grid[row][column];
