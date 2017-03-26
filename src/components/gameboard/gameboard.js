@@ -19,6 +19,7 @@ function gameboardController(gridService) {
   };
 
   this.$onInit = () => {
+    this.gameboard = [[]];
     gridService.createGrid(this.rowSize, this.columnSize);
 
     this.gameboard = gridService.grid;
