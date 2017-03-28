@@ -118,16 +118,70 @@ describe('gameboard component', function() {
       });
     });
 
-    xdescribe('start and stop simulation', function() {
-      it('should start and stop the simulation', function() {
+    describe('start and stop simulation', function() {
+      it('should run the simulation for one iteration', function() {
+        let startingGrid = [
+          [false, false, true],
+          [false, false, false],
+          [false, false, false],
+        ];
+
+        const expectedGrid = [
+          [false, false, false],
+          [false, false, false],
+          [false, false, false]
+        ];
+
+        gridService.grid = startingGrid;
+
         gameboardController.startConwaysGameOfLife();
 
-        $interval.flush(1000);
+        $interval.flush(1100);
+
+        const actualGrid = gameboardController.gameboard;
+
+        expect(actualGrid).toEqual(expectedGrid);
+      });
+
+      it('should cancel the simulation when stopConwaysGameOfLife() is called', function() {
+        let startingGrid = [
+          [false, false, true],
+          [false, false, false],
+          [false, false, false],
+        ];
+
+        const expectedGrid = [
+          [false, false, false],
+          [false, false, false],
+          [false, false, false]
+        ];
+
+        spyOn($interval, 'cancel');
+
+        gridService.grid = startingGrid;
+
+        gameboardController.startConwaysGameOfLife();
+
+        $interval.flush(1100);
 
         gameboardController.stopConwaysGameOfLife();
 
-        expect($intervalSpy.cancel.calls.count()).toBe(2);
-      })
-    })
+        expect($interval.cancel).toHaveBeenCalled();
+      });
+
+      it('should set the isGameSimulating flag when the simulation runs', function() {
+        const expectedGrid = [
+          [false, false, false],
+          [false, false, false],
+          [false, false, false]
+        ];
+
+        gridService.grid = expectedGrid;
+
+        gameboardController.startConwaysGameOfLife();
+
+        expect(gameboardController.isGameboardSimulating).toBe(true);
+      });
+    });
   });
 });
