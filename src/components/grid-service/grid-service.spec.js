@@ -90,4 +90,79 @@ describe('grid service', function() {
       expect(actualRowSize).toEqual(expectedColumnSize);
     });
   });
+
+  describe('getSurroundingCoordinates(rowIndex, columnIndex) method', function() {
+    let fakeGrid;
+
+    beforeEach(function() {
+      fakeGrid = [
+        [false, false, false, true],
+        [false, false, false, false],
+        [false, false, false, false]
+      ];
+
+      gridService.grid = fakeGrid;
+    });
+
+    it('should get the surrounding coordinates when the coordinates are at the left top corner of the grid', function() {
+      const rowIndex = 0;
+      const columnIndex = 0;
+
+      const expectedGridCoordinates = [
+        {rowIndex: rowIndex + 1, columnIndex: columnIndex, value: false},
+        {rowIndex: rowIndex, columnIndex: columnIndex + 1, value: false},
+        {rowIndex: rowIndex + 1, columnIndex: columnIndex + 1, value: false}
+      ];
+
+      const actualGridCoordinates = gridService.getSurroundingCoordinates(rowIndex, columnIndex);
+
+      expect(actualGridCoordinates).toEqual(expectedGridCoordinates);
+    });
+
+    it('should get the surrounding coordinates when the coordinates are at the right bottom corner of the grid', function() {
+      const rowIndex = 2;
+      const columnIndex = 3;
+
+      const expectedGridCoordinates = [
+        {rowIndex: rowIndex - 1, columnIndex: columnIndex - 1, value: false},
+        {rowIndex: rowIndex, columnIndex: columnIndex - 1, value: false},
+        {rowIndex: rowIndex - 1, columnIndex: columnIndex, value: false}
+      ];
+
+      const actualGridCoordinates = gridService.getSurroundingCoordinates(rowIndex, columnIndex);
+
+      expect(actualGridCoordinates).toEqual(expectedGridCoordinates);
+    });
+
+    it('should get the surrounding coordinates when in the coordinate is in the middle of the grid', function() {
+      const rowIndex = 1;
+      const columnIndex = 1;
+
+      const expectedGridCoordinates = [
+        {rowIndex: rowIndex - 1, columnIndex: columnIndex - 1, value: false},
+        {rowIndex: rowIndex, columnIndex: columnIndex - 1, value: false},
+        {rowIndex: rowIndex + 1, columnIndex: columnIndex - 1, value: false},
+        {rowIndex: rowIndex - 1, columnIndex: columnIndex, value: false},
+        {rowIndex: rowIndex + 1, columnIndex: columnIndex, value: false},
+        {rowIndex: rowIndex - 1, columnIndex: columnIndex + 1, value: false},
+        {rowIndex: rowIndex, columnIndex: columnIndex + 1, value: false},
+        {rowIndex: rowIndex + 1, columnIndex: columnIndex + 1, value: false}
+      ];
+
+      const actualGridCoordinates = gridService.getSurroundingCoordinates(rowIndex, columnIndex);
+
+      expect(actualGridCoordinates).toEqual(expectedGridCoordinates);
+    });
+
+    it('should get the surrounding coordinates with an appropriate value', function() {
+      const rowIndex = 1;
+      const columnIndex = 3;
+
+      const expectedGridCoordinate = {rowIndex: rowIndex - 1, columnIndex: columnIndex, value: true};
+
+      const actualGridCoordinates = gridService.getSurroundingCoordinates(rowIndex, columnIndex);
+
+      expect(actualGridCoordinates).toContain(expectedGridCoordinate);
+    });
+  });
 });
