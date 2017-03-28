@@ -6,4 +6,11 @@
              ng-click="$ctrl.clickCoordinate($parent.$index, $index)">
         </div>
     </div>
+
+    <div>
+        <button ng-click="$ctrl.startConwaysGameOfLife()">Start</button>
+        <button ng-click="$ctrl.stopConwaysGameOfLife()">Stop</button>
+        <div ng-if="$ctrl.isGameboardSimulating">Simulating...</div>
+    </div>
+
 </div>

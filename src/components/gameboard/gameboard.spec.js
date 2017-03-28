@@ -3,12 +3,13 @@
 describe('gameboard component', function() {
   beforeEach(angular.mock.module('conwaysApp'));
 
-  let gridService, $componentController, $compile, $rootScope;
+  let gridService, $componentController, $compile, $rootScope, $interval;
 
-  beforeEach(inject(function(_$componentController_, _$compile_, _$rootScope_, _gridService_) {
+  beforeEach(inject(function(_$componentController_, _$compile_, _$rootScope_, _$interval_, _gridService_) {
     $componentController = _$componentController_;
     $compile = _$compile_;
     $rootScope = _$rootScope_;
+    $interval = _$interval_;
     gridService = _gridService_;
   }));
 
@@ -116,5 +117,17 @@ describe('gameboard component', function() {
         });
       });
     });
+
+    xdescribe('start and stop simulation', function() {
+      it('should start and stop the simulation', function() {
+        gameboardController.startConwaysGameOfLife();
+
+        $interval.flush(1000);
+
+        gameboardController.stopConwaysGameOfLife();
+
+        expect($intervalSpy.cancel.calls.count()).toBe(2);
+      })
+    })
   });
 });
