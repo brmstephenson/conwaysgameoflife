@@ -134,7 +134,7 @@ describe('gameboard component', function() {
 
         gridService.grid = startingGrid;
 
-        gameboardController.startConwaysGameOfLife();
+        gameboardController.toggleConwaysGameOfLife();
 
         $interval.flush(1100);
 
@@ -160,11 +160,11 @@ describe('gameboard component', function() {
 
         gridService.grid = startingGrid;
 
-        gameboardController.startConwaysGameOfLife();
+        gameboardController.toggleConwaysGameOfLife();
 
         $interval.flush(1100);
 
-        gameboardController.stopConwaysGameOfLife();
+        gameboardController.toggleConwaysGameOfLife();
 
         expect($interval.cancel).toHaveBeenCalled();
       });
@@ -178,9 +178,27 @@ describe('gameboard component', function() {
 
         gridService.grid = expectedGrid;
 
-        gameboardController.startConwaysGameOfLife();
+        gameboardController.toggleConwaysGameOfLife();
 
         expect(gameboardController.isGameboardSimulating).toBe(true);
+      });
+
+      it('should return the start text if the simulation is not running', function() {
+        const expectedText = 'Start';
+
+        const actualText = gameboardController.getToggleButtonText();
+
+        expect(actualText).toEqual(expectedText);
+      });
+
+      it('should return the start text if the simulation is not running', function() {
+        const expectedText = 'Stop';
+
+        gameboardController.toggleConwaysGameOfLife();
+
+        const actualText = gameboardController.getToggleButtonText();
+
+        expect(actualText).toEqual(expectedText);
       });
     });
   });

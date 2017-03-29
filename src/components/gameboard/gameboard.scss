@@ -1,30 +1,70 @@
-.gameboard {
-  display: table;
-  left: 50%;
-  top: 50%
-}
+.gameboard-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-.coordinate {
-  display: table-cell;
-  width: 100px;
-  height: 100px;
-  float: left;
-}
+  .gameboard {
+    display: table;
+    .coordinate {
+      display: table-cell;
+      width: 25px;
+      height: 25px;
+      float: left;
+      border: 1px solid black;
+    }
+  }
 
-.clearfix:after {
-  content: ".";
-  visibility: hidden;
-  display: block;
-  height: 0;
-  clear: both;
+  .clearfix:after {
+    content: ".";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+  }
 }
 
 .dead {
-  background-color: #775aa0;
+  background-color: #cc80ef;
   color: white;
-  border: 2px solid black;
 }
 
 .alive {
-  background-color: blue;
+  background-color: #17a9e1;
+}
+
+.button-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  outline: none;
+}
+
+@keyframes grow {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+
+  .toggle-game {
+    background-color: #17a9e1;
+    font-size: 1.5em;
+    width: 100px;
+    height: 50px;
+    padding: 10px;
+    color: #fff;
+  }
+
+  .simulating {
+    animation-delay: 0s;
+    animation: grow 2s infinite;
+  }
 }

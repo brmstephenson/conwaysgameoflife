@@ -1,16 +1,18 @@
-<div class="gameboard">
-    <div ng-repeat="row in $ctrl.gameboard track by $index">
-        <div class="coordinate dead"
-             ng-repeat="column in row track by $index"
-             ng-class="{alive: column, clearfix: $ctrl.shouldClearfix($index)}"
-             ng-click="$ctrl.clickCoordinate($parent.$index, $index)">
+<div class="gameboard-container">
+    <div class="gameboard">
+        <div ng-repeat="row in $ctrl.gameboard track by $index">
+            <div class="coordinate dead"
+                 ng-repeat="column in row track by $index"
+                 ng-class="{alive: column, clearfix: $ctrl.shouldClearfix($index)}"
+                 ng-click="$ctrl.clickCoordinate($parent.$index, $index)">
+            </div>
         </div>
     </div>
-
-    <div>
-        <button ng-click="$ctrl.startConwaysGameOfLife()">Start</button>
-        <button ng-click="$ctrl.stopConwaysGameOfLife()">Stop</button>
-        <div ng-if="$ctrl.isGameboardSimulating">Simulating...</div>
-    </div>
-
+</div>
+<div class="controls">
+    <button class="toggle-game button-reset"
+            ng-click="$ctrl.toggleConwaysGameOfLife()"
+            ng-bind="$ctrl.getToggleButtonText()"
+            ng-class="{simulating: $ctrl.isGameboardSimulating}">
+    </button>
 </div>

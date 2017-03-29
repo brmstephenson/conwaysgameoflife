@@ -17,22 +17,32 @@ function gameboardController(gridService, $interval, rulesService, $scope) {
 
   this.isGameboardSimulating = false;
 
-  this.startConwaysGameOfLife = () => {
-    this.isGameboardSimulating = true;
+  this.toggleConwaysGameOfLife = () => {
+    if(angular.isDefined(conwaysGameOfLife)) {
+      this.stopConwaysGameOfLife();
+    } else {
+      this.isGameboardSimulating = true;
 
-    conwaysGameOfLife = $interval(() => {
-      rulesService.simulateIteration();
-      this.gameboard = gridService.grid;
-    }, 100);
+      conwaysGameOfLife = $interval(() => {
+        rulesService.simulateIteration();
+        this.gameboard = gridService.grid;
+      }, 100);
+    }
+  };
+
+  this.getToggleButtonText = () => {
+    if(this.isGameboardSimulating) {
+      return 'Stop';
+    } else {
+      return 'Start';
+    }
   };
 
   this.stopConwaysGameOfLife = () => {
     this.isGameboardSimulating = false;
 
-    if(angular.isDefined(conwaysGameOfLife)) {
-      $interval.cancel(conwaysGameOfLife);
-      conwaysGameOfLife = undefined;
-    }
+    $interval.cancel(conwaysGameOfLife);
+    conwaysGameOfLife = undefined;
   };
 
   $scope.$on('$destroy', () => {
